@@ -11,7 +11,7 @@ sys.setdefaultencoding('utf8')
 import tensorflow as tf
 import numpy as np
 from p5_fastTextB_model import fastTextB as fastText
-from aa1_data_util.data_util_zhihu import load_data_predict,load_final_test_data,create_voabulary,create_voabulary_label
+from data_util_zhihu import load_data_predict,load_final_test_data,create_voabulary,create_voabulary_label
 from tflearn.data_utils import to_categorical, pad_sequences
 import os
 import codecs
