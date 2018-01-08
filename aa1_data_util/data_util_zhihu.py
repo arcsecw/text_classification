@@ -10,8 +10,8 @@ from tflearn.data_utils import pad_sequences
 _GO="_GO"
 _END="_END"
 _PAD="_PAD"
-def create_voabulary(simple=None,word2vec_model_path='zhihu-word2vec-title-desc.bin-100',name_scope=''): #zhihu-word2vec-multilabel.bin-100
-    cache_path ='cache_vocabulary_label_pik/'+ name_scope + "_word_voabulary.pik"
+def create_voabulary(simple=None,word2vec_model_path='../data/zhihu-word2vec-title-desc.bin-100',name_scope=''): #zhihu-word2vec-multilabel.bin-100
+    cache_path ='../data/cache_vocabulary_label_pik/'+ name_scope + "_word_voabulary.pik"
     print("cache_path:",cache_path,"file_exists:",os.path.exists(cache_path))
     if os.path.exists(cache_path):#如果缓存文件存在，则直接读取
         with open(cache_path, 'r') as data_f:
@@ -21,7 +21,7 @@ def create_voabulary(simple=None,word2vec_model_path='zhihu-word2vec-title-desc.
         vocabulary_word2index={}
         vocabulary_index2word={}
         if simple is not None:
-            word2vec_model_path='zhihu-word2vec.bin-100'
+            word2vec_model_path='../data/zhihu-word2vec.bin-100'
         print("create vocabulary. word2vec_model_path:",word2vec_model_path)
         model=word2vec.load(word2vec_model_path,kind='bin')
         vocabulary_word2index['PAD_ID']=0
@@ -42,9 +42,9 @@ def create_voabulary(simple=None,word2vec_model_path='zhihu-word2vec-title-desc.
     return vocabulary_word2index,vocabulary_index2word
 
 # create vocabulary of lables. label is sorted. 1 is high frequency, 2 is low frequency.
-def create_voabulary_label(voabulary_label='train-zhihu4-only-title-all.txt',name_scope='',use_seq2seq=False):#'train-zhihu.txt'
+def create_voabulary_label(voabulary_label='../data/train-zhihu4-only-title-all.txt',name_scope='',use_seq2seq=False):#'train-zhihu.txt'
     print("create_voabulary_label_sorted.started.traning_data_path:",voabulary_label)
-    cache_path ='cache_vocabulary_label_pik/'+ name_scope + "_label_voabulary.pik"
+    cache_path ='../data/cache_vocabulary_label_pik/'+ name_scope + "_label_voabulary.pik"
     if os.path.exists(cache_path):#如果缓存文件存在，则直接读取
         with open(cache_path, 'r') as data_f:
             vocabulary_word2index_label, vocabulary_index2word_label=pickle.load(data_f)
@@ -99,7 +99,7 @@ def sort_by_value(d):
     return [ backitems[i][1] for i in range(0,len(backitems))]
 
 def create_voabulary_labelO():
-    model = word2vec.load('zhihu-word2vec-multilabel.bin-100', kind='bin') #zhihu-word2vec.bin-100
+    model = word2vec.load('../data/zhihu-word2vec-multilabel.bin-100', kind='bin') #zhihu-word2vec.bin-100
     count=0
     vocabulary_word2index_label={}
     vocabulary_index2word_label={}
@@ -115,7 +115,7 @@ def create_voabulary_labelO():
     return vocabulary_word2index_label,vocabulary_index2word_label
 
 def load_data_multilabel_new(vocabulary_word2index,vocabulary_word2index_label,valid_portion=0.05,max_training_data=1000000,
-                             traning_data_path='train-zhihu4-only-title-all.txt',multi_label_flag=True,use_seq2seq=False,seq2seq_label_length=6):  # n_words=100000,
+                             traning_data_path='../data/train-zhihu4-only-title-all.txt',multi_label_flag=True,use_seq2seq=False,seq2seq_label_length=6):  # n_words=100000,
     """
     input: a file path
     :return: train, test, valid. where train=(trainX, trainY). where
@@ -199,7 +199,7 @@ def load_data_multilabel_new(vocabulary_word2index,vocabulary_word2index_label,v
     return train, test, test
 
 def load_data_multilabel_new_twoCNN(vocabulary_word2index,vocabulary_word2index_label,valid_portion=0.05,max_training_data=1000000,
-                                    traning_data_path='train-zhihu4-only-title-all.txt',multi_label_flag=True):  # n_words=100000,
+                                    traning_data_path='../data/train-zhihu4-only-title-all.txt',multi_label_flag=True):  # n_words=100000,
     """
     input: a file path
     :return: train, test, valid. where train=(trainX, trainY). where
@@ -260,7 +260,7 @@ def load_data_multilabel_new_twoCNN(vocabulary_word2index,vocabulary_word2index_
     print("load_data.ended...")
     return train, test, test
 
-def load_data(vocabulary_word2index,vocabulary_word2index_label,valid_portion=0.05,max_training_data=1000000,training_data_path='train-zhihu4-only-title-all.txt'):  # n_words=100000,
+def load_data(vocabulary_word2index,vocabulary_word2index_label,valid_portion=0.05,max_training_data=1000000,training_data_path='../data/train-zhihu4-only-title-all.txt'):  # n_words=100000,
     """
     input: a file path
     :return: train, test, valid. where train=(trainX, trainY). where
@@ -481,7 +481,7 @@ def read_topic_info():
     return dict_questionid_title
 
 def stat_training_data_length():
-    training_data='train-zhihu4-only-title-all.txt'
+    training_data='../data/train-zhihu4-only-title-all.txt'
     f = codecs.open(training_data, 'r', 'utf8')
     lines=f.readlines()
     length_dict={0:0,5:0,10:0,15:0,20:0,25:0,30:0,35:0,40:0,100:0,150:0,200:0,1500:0}

@@ -7,7 +7,7 @@ sys.setdefaultencoding('utf8')
 import tensorflow as tf
 import numpy as np
 from p5_fastTextB_model import fastTextB as fastText
-from data_util_zhihu import load_data,create_voabulary,create_voabulary_label
+from aa1_data_util.data_util_zhihu import load_data,create_voabulary,create_voabulary_label
 from tflearn.data_utils import to_categorical, pad_sequences
 import os
 import word2vec
@@ -43,7 +43,7 @@ def main(_):
         vocabulary_word2index, vocabulary_index2word = create_voabulary()
         vocab_size = len(vocabulary_word2index)
         vocabulary_word2index_label,_ = create_voabulary_label()
-        train, test, _ = load_data(vocabulary_word2index, vocabulary_word2index_label,data_type='train')
+        train, test, _ = load_data(vocabulary_word2index, vocabulary_word2index_label)
         trainX, trainY = train
         testX, testY = test
         print("testX.shape:", np.array(testX).shape)  # 2500个list.每个list代表一句话
@@ -118,7 +118,7 @@ def main(_):
 def assign_pretrained_word_embedding(sess,vocabulary_index2word,vocab_size,fast_text):
     print("using pre-trained word emebedding.started...")
     # word2vecc=word2vec.load('word_embedding.txt') #load vocab-vector fiel.word2vecc['w91874']
-    word2vec_model = word2vec.load('zhihu-word2vec-multilabel.bin-100', kind='bin')
+    word2vec_model = word2vec.load('../data/zhihu-word2vec-multilabel.bin-100', kind='bin')
     word2vec_dict = {}
     for word, vector in zip(word2vec_model.vocab, word2vec_model.vectors):
         word2vec_dict[word] = vector
