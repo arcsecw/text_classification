@@ -1,0 +1,6 @@
+*.txt
+*.idea
+*.DS_Store
+*.pyc
+data/
+
