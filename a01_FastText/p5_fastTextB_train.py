@@ -4,6 +4,7 @@
 import sys
 reload(sys)
 sys.setdefaultencoding('utf8')
+sys.path.append("..")
 import tensorflow as tf
 import numpy as np
 from p5_fastTextB_model import fastTextB as fastText
